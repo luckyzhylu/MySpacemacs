@@ -1,0 +1,75 @@
+#+TITLE:spacemacs使用说明
+* 配置说明
+** 开启80行
+   SPC t 8
+   SPC t f
+** delete-hungry
+   spacemacs/toggle-delete-hungry-on
+** 显示行号
+   spacemacs/toggle-line-numbers-on
+
+* 插件安装及使用说明
+** ispell
+   ispell的backend可以使用flyspell或者aspell,使用aspell时，需要安装aspell，已经安装aspell的dictionary,
+安装方法如下：
+  flyspell官网:https://www.emacswiki.org/emacs/FlySpell
+*** aspell安装方法
+    下载源代码：http://aspell.net
+    ./configure && make && make install
+*** aspell dictionary安装方法
+    下载dictionary：https://ftp.gnu.org/gnu/aspell/dict/0index.html
+也可以从上面的链接下载,下载后make && make install
+
+
+
+
+** yasnippet
+*** 查看对应的snippet文件
+    helm-yas-vist-snippet-file
+*** 创建一个新的snippet文件
+    helm-yas-create-snippet-on-region
+*** 激活补全
+    hippie-expand M+/
+
+
+* 阅读代码
+** Code Navigation
+https://develop.spacemacs.org/doc/CONVENTIONS.html#headers
+
+The prefix for going to something is SPC m g.
+
+
+Key	Description
+m g a	go to alternate file (i.e. .h <--> .cpp), use projectile-find-other-file 
+m g b	go back to previous location (before last jump)
+m g g	go to things under point
+m g G	go to things under point in other window
+m g i	go to imports
+m g t	go to corresponding test file if any
+m g u	go/find usage of thing under point
+
+
+** Code Formatting
+
+Major-mode code formatting is under prefix SPC m =.
+
+Key binding	Description
+m = =	format thing under point
+m = b	format current buffer
+m = f	format current function
+
+* 问题
+1. C语言的对齐不是4个空格；
+2. projectile打开多个工程，如何进行切换
+3. 如何设置创建文档模板
+4. 阅读代码时，如何跳转到调用处
+5. 设置ag在projectile中全局搜索
+6. 编程时，头文件和源代码文件中快速切换
+
+
+
+学习知识：
+1. 观看接下来的视频
+2. 编写自己的layer
+3. dired+模式下操作
+4. ibuffer插件的安装和使用  SPC b B 打开ibuffer

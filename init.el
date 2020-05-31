@@ -37,6 +37,7 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ;; ivy
+     ;; smex
      helm
      auto-completion
      better-defaults
@@ -45,13 +46,28 @@ values."
      git
      markdown
      org
-     (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom)
-     spell-checking
+     ;; (shell :variables
+     ;;        shell-default-height 30
+     ;;        shell-defau
+     ;;        lt-position 'bottom)
+     ;; spell-checking
      syntax-checking
      version-control
      osx
+     (ibuffer :variables ibuffer-group-buffers-by 'projects)
+     ;; go
+     ;; html
+     ;; javascript
+     ;; python
+     ;; shell-scripts
+     ;; sql
+     ;; csv
+
+     ;; cscope
+     ;;helm-gtags
+     (gtags :variables gtags-enable-by-default t)
+     ;; ycmd
+;;     programming
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -295,7 +311,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup t
    ))
 
 (defun dotspacemacs/user-init ()
@@ -309,7 +325,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
         '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
           ("org-cn"   . "http://elpa.emacs-china.org/org/")
           ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
-  )
+  (setq ispell-program-name "/usr/local/bin/aspell")
+  (ispell-change-dictionary "american")
+)
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -318,8 +336,19 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-
-  ;; (require 'org-projectile)
+  (spacemacs/helm-gtags-define-keys-for-mode 'c-mode)
+  (spacemacs/toggle-fill-column-indicator)
+  (setq dotspacemacs-line-numbers t)
+  ;; (setq-default dotspacemacs-whitespace-cleanup t)
+  (setq yas-snippet-dirs '("~/.spacemacs.d/snippets/"))
+  (setq dotspacemacs-mode-line-unicode-symbols nil)     ;; min-mode using ASCII
+  (spacemacs/toggle-highlight-current-line-globally-off)     ;;
+  (setq-default indent-tabs-mode nil)
+  (setq table-width 4)
+  (setq c-basic-offset 4)
+  (global-linum-mode t)
+  (global-hungry-delete-mode t)
+  ;;(use-package yasnippet:config (add-to-list 'yas-snippet-dirs “~/.spacemacs.d/snippets”)) (yas-global-mode 1))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -331,7 +360,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (projectile reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl xterm-color smeargle shell-pop orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download multi-term magit-gitflow magit-popup htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit eshell-z eshell-prompt-extras esh-help wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel swiper ivy unfill mwim mmm-mode markdown-toc markdown-mode gh-md disaster company-c-headers cmake-mode clang-format helm-company helm-c-yasnippet git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor transient git-gutter fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (helm-cscope xcscope ibuffer-projectile helm-gtags ggtags projectile reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl xterm-color smeargle shell-pop orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download multi-term magit-gitflow magit-popup htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit eshell-z eshell-prompt-extras esh-help wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel swiper ivy unfill mwim mmm-mode markdown-toc markdown-mode gh-md disaster company-c-headers cmake-mode clang-format helm-company helm-c-yasnippet git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor transient git-gutter fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name : class "..."
+# key  : class
+# --
+class  ${1:C`(file-name-nondirectory (file-name-sans-extension (or (buffer-file-name) "headerfile")))`} {
+private:
+    $1(const $1& rc);
+    const $1& operator=(const $1& rc);
+public:
+    $1();
+    virtual ~$1();
+protected:      
+};

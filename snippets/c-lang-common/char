@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: char ...
+# key: char
+# --
+char ${1:str}[${2:256}] = {0};
