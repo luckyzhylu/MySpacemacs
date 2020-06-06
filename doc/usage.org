@@ -37,6 +37,10 @@
 https://develop.spacemacs.org/doc/CONVENTIONS.html#headers
 
 The prefix for going to something is SPC m g.
+SPC m g l 列出文件中的函数名称，并可以进行搜索
+SPC m g a 跳转到对应的头文件，但是无法调整回来
+SPC m g n 跳转到下一个位置
+SPC m g p 跳转到上一个位置
 
 
 Key	Description
@@ -58,13 +62,71 @@ m = =	format thing under point
 m = b	format current buffer
 m = f	format current function
 
+
+
+* emacs lisp编程
+** 调试
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Debugger.html#Debugger
+*** 打开调试开关
+1. M-x:toggle-debug-on-error
+2. .emacs中加入(setq debug-on-erron t)
+3. emacs -debug-init
+*** 调试函数
+1. M-x:debug-on-entry Function-name
+2. M-x:cancel-debug-on-entry Function-name
+调试过程中，eval-expression-debug-on-error/debug-on-error为t,
+其他地方出错了会调整到对应的出错的地方,可以通过eval-expression-on-debug-error nil
+或debug-on-error nil
+*** 调试变量
+1. M-x:debug-on-variable-change
+2. M-x:cancel-debug-on-variable-change
+*** 异常调试
+1. 在lisp代码中增加(debug)
+2. M-x:eval-defun
+*** debugger调试命令
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Debugger-Commands.html#Debugger-Commands
+    c: 退出debugger并继续执行
+    d: 下一步
+    b:
+    u
+    j
+    e
+    R
+    q
+    r
+    l
+    v
+** 标准输入输出
+*** 获取用户输入信息
+http://ergoemacs.org/emacs/elisp_idioms_prompting_input.html
+1. read-string
+2. read-file-name
+3. read-directory-name
+4. read-regex
+
+
 * 问题
-1. C语言的对齐不是4个空格；
+1. C语言的对齐不是4个空格； custom
+   '(c-basic-offset 4)    init.el中的custom-set-variables中增加自定义
 2. projectile打开多个工程，如何进行切换
 3. 如何设置创建文档模板
-4. 阅读代码时，如何跳转到调用处
-5. 设置ag在projectile中全局搜索
-6. 编程时，头文件和源代码文件中快速切换
+4. 阅读代码时，如何跳转到调用处  SPC m g r
+5. 设置ag在projectile中全局搜索  :可以使用helm-ag-project-root
+6. 编程时，头文件和源代码文件中快速切换   SPC m g a 可以调整到头文件，但是不能跳转到源代码文件
+7. helm-bookmarks          SPC f b      ->helm-filtered-bookmarks
+           (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
+           (define-key helm-bookmark-map (kbd "C-e") 'helm-bookmark-run-edit)
+           (define-key helm-bookmark-map
+           (kbd "C-f") 'helm-bookmark-toggle-filename)
+           (define-key helm-bookmark-map
+           (kbd "C-o") 'helm-bookmark-run-jump-other-window)
+           (define-key helm-bookmark-map (kbd "C-/") 'helm-bookmark-help))
+8. bm layer
+   SPC a b         t: toggle bm      n/N next/prev bm
+9. ibuffer插件的安装和使用
+   SPC b I 打开ibuffer
+   tab or g-j  or ] or M-n     --> go to next group
+   S-tab or g-k or [ or M-p    --> go to prev group
 
 
 
@@ -72,4 +134,19 @@ m = f	format current function
 1. 观看接下来的视频
 2. 编写自己的layer
 3. dired+模式下操作
-4. ibuffer插件的安装和使用  SPC b B 打开ibuffer
+4. ibuffer插件的安装和使用  SPC b I 打开ibuffer
+5. project切换
+6. terminal模式下的c-basic-offset设置 custom-set-variables中增加自定义
+7. template插件使用       自动插入暂时不生效
+8. bookmark             可以使用helm-bookmark
+9. emacs如何调试elisp代码
+
+
+
+emacs知识：
+1. https://github.com/chrisdone/elisp-guide#manipulating-the-buffer
+   a. buffers
+   b. The point
+   c. The region
+2. emacs debug
+   (setq debug-on-error t)        ;; any errors will open up the debugger.

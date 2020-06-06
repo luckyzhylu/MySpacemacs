@@ -36,8 +36,8 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; ivy
-     ;; smex
+     smex
+     ;;ivy
      helm
      auto-completion
      better-defaults
@@ -50,15 +50,16 @@ values."
      ;;        shell-default-height 30
      ;;        shell-defau
      ;;        lt-position 'bottom)
+     (shell-scripts)
      ;; spell-checking
      syntax-checking
      version-control
      osx
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
-     ;; go
+     go
      ;; html
      ;; javascript
-     ;; python
+     python
      ;; shell-scripts
      ;; sql
      ;; csv
@@ -66,6 +67,10 @@ values."
      ;; cscope
      ;;helm-gtags
      (gtags :variables gtags-enable-by-default t)
+     (templates :variables templates-private-directory "~/.spacemacs.d/templates")
+     bm
+
+     zyl
      ;; ycmd
 ;;     programming
      )
@@ -345,9 +350,9 @@ you should place your code here."
   (spacemacs/toggle-highlight-current-line-globally-off)     ;;
   (setq-default indent-tabs-mode nil)
   (setq table-width 4)
-  (setq c-basic-offset 4)
   (global-linum-mode t)
   (global-hungry-delete-mode t)
+  ;; (setq auto-insert-query nil)
   ;;(use-package yasnippet:config (add-to-list 'yas-snippet-dirs “~/.spacemacs.d/snippets”)) (yas-global-mode 1))
   )
 
@@ -358,9 +363,11 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(c-basic-offset 4)
+ '(debug-on-error t)
  '(package-selected-packages
    (quote
-    (helm-cscope xcscope ibuffer-projectile helm-gtags ggtags projectile reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl xterm-color smeargle shell-pop orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download multi-term magit-gitflow magit-popup htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit eshell-z eshell-prompt-extras esh-help wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel swiper ivy unfill mwim mmm-mode markdown-toc markdown-mode gh-md disaster company-c-headers cmake-mode clang-format helm-company helm-c-yasnippet git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor transient git-gutter fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (yapfify powerline pyvenv pytest pyenv-mode py-isort pip-requirements spinner live-py-mode insert-shebang hydra lv hy-mode dash-functional parent-mode helm-pydoc go-guru go-eldoc flx fish-mode highlight smartparens iedit anzu evil goto-chg undo-tree cython-mode pkg-info epl company-shell company-go go-mode company-anaconda bind-map bind-key packed anaconda-mode pythonic f dash s helm avy helm-core async popup helm-cscope xcscope ibuffer-projectile helm-gtags ggtags projectile reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl xterm-color smeargle shell-pop orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download multi-term magit-gitflow magit-popup htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit eshell-z eshell-prompt-extras esh-help wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel swiper ivy unfill mwim mmm-mode markdown-toc markdown-mode gh-md disaster company-c-headers cmake-mode clang-format helm-company helm-c-yasnippet git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor transient git-gutter fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
